@@ -1,0 +1,25 @@
+.navbar__container{
+    width:100%;
+
+}
+
+.navbar__wrapper{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+form{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: left;
+}
+label{
+    text-align: left;
+}
+
+input {
+    padding:2%;
+}

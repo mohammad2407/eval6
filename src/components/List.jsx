@@ -1,0 +1,57 @@
+import React, { useState } from 'react'
+import { LOGIN, login } from '../redux/Action'
+import {useNavigate} from "react-router-dom"
+import {useDispatch} from "react-redux"
+export const List = () => {
+    const [email,setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+
+    const Navigate = useNavigate()
+    const dispatch = useDispatch()
+    const handleSubmit = async(event) =>{
+        event.preventDefault();
+        let users = {
+            email,
+            password
+        }
+        if (users.email !== "" && users.password !== "") {
+           await fetch("https://reqres.in/api/login", {
+                method: "POST",
+                body: JSON.stringify(users),
+                headers: {
+                    'Content-Type': "application/json"
+                }
+            }).then((res) => res.json())
+                .then((data) => {
+                    dispatch({
+                        type:LOGIN,
+                        payload:data.token
+                    })
+                    Navigate("/")
+                });
+
+            
+        }
+        else{
+            alert('Invalid User Details')
+        }
+    }   
+
+
+  return (
+    <div>
+        <h1>Login</h1>
+
+        <form action="" onSubmit={handleSubmit}>
+            <label htmlFor=""> Email : </label>
+            <input type="text" placeholder = "email" value={email} onChange = {(e) => setEmail(e.target.value)}/>
+            <br />
+            <label htmlFor="">Password :</label>
+            <input type="password" placeholder = "Password" value={password} onChange = {(e) => setPassword(e.target.value)} />
+            <br />
+            <input type="submit" value="Login" />
+        </form>
+    </div>
+  )
+}
