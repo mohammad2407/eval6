@@ -42,7 +42,7 @@
     display: flex;
     align-items: baseline;
     justify-content: baseline;
-    width:60%;
+    width:100%;
     padding: 3%;
     border-radius: 5px;
     border: none;
@@ -51,11 +51,20 @@
     font-size: 15px;
     font-weight: 500;
     text-decoration: none;
+    color:rgb(192, 186, 186);
 }
 
+.link :hover{
+    background-color: rgb(148, 153, 153);
+    transition: 0.3s all ease-in-out;
+    color:#fff;
+
+}
 .link{
     color: rgb(236, 238, 214);
     text-decoration: none;
     width: 100%;
     text-align: left;
+    transition: 0.3s all ease-in-out;
+
 }

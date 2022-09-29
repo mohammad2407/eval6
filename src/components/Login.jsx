@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import { LOGIN, login, style } from '../redux/Action'
 import {useNavigate} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
-export const List = () => {
+import "../styles/Navbar.css"
+
+export const Login = () => {
     const [email,setEmail] = useState("")
     const [password, setPassword] = useState("")
     const {isAuth} = useSelector((state) => state)
@@ -56,7 +58,7 @@ export const List = () => {
             <label htmlFor="">Password :</label>
             <input type="password" placeholder = "Password" value={password} onChange = {(e) => setPassword(e.target.value)} />
             <br />
-            <input type="submit" value="Login" />
+            <input type="submit" value="Login" className='login__button' />
         </form>
     </div>
   )

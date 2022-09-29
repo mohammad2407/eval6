@@ -4,6 +4,7 @@ import axios from "axios";
 import "../styles/cart.css";
 import { addToCart, ADD_TO_CART, style, updateCart } from "../redux/Action";
 import { Link } from "react-router-dom";
+import {FiLogIn} from 'react-icons/fi'
 export const Cart = () => {
   const { cart } = useSelector((state) => state);
   const Auth   = useSelector((store) => store.isAuth)
@@ -11,9 +12,10 @@ export const Cart = () => {
   let dispatch = useDispatch();
 
   const getCartData = useCallback(async () => {
-    let response = await axios.get(`https://masai-lvetslp-server.herokuapp.com/cart`);
-    dispatch(addToCart(response.data));
-    console.log(response);
+    if(Auth){
+      let response = await axios.get(`https://masai-lvetslp-server.herokuapp.com/cart`);
+      dispatch(addToCart(response.data));
+    }
   });
 
   const handleAdd = async (cartItem, val) => {
@@ -49,9 +51,12 @@ export const Cart = () => {
   };
 
    if(Auth === false){
-        return <div>
+        return <div className="login__wrapper">
             <h1>Please Login</h1>
-            <Link to = "/list" onClick={() => dispatch(style({div1:"inactive", div2:"inactive", div3:"active"}))} >Login</Link>
+            <Link to={`/login`} className="login"  onClick = {() => dispatch(style({div1:"inactive", div2:"inactive", div3:"active"}))} >
+                  <p>Login</p>
+                  <div><FiLogIn /></div>
+            </Link>
             </div>
     }
   return (
@@ -87,6 +92,8 @@ export const Cart = () => {
           );
         })
       )}
+
+      <button>Make Payment</button>
     </div>
   );
 };

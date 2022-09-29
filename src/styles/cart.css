@@ -4,3 +4,31 @@
     justify-content: space-around;
     align-items: center;
 }
+
+.login__wrapper{
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.login{
+    width:20%;
+    font-size: 19px;
+    display: flex;
+     justify-content: space-around;
+     align-items: center;
+    text-decoration: none;
+    background-color: rgb(96, 96, 124);
+    text-align: center;
+    padding: 1%;
+    color:rgb(43, 40, 40);
+    transition: 0.3s ease-in;
+}
+
+.login:hover{
+    background-color: rgb(89, 89, 134);
+    opacity: 0.9;
+    color:#fff;
+    height:90%;
+}
