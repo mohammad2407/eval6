@@ -2,9 +2,11 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import "../styles/cart.css";
-import { addToCart, ADD_TO_CART, updateCart } from "../redux/Action";
+import { addToCart, ADD_TO_CART, style, updateCart } from "../redux/Action";
+import { Link } from "react-router-dom";
 export const Cart = () => {
   const { cart } = useSelector((state) => state);
+  const Auth   = useSelector((store) => store.isAuth)
 
   let dispatch = useDispatch();
 
@@ -45,6 +47,13 @@ export const Cart = () => {
       })
       .then(() => getCartData());
   };
+
+   if(Auth === false){
+        return <div>
+            <h1>Please Login</h1>
+            <Link to = "/list" onClick={() => dispatch(style({div1:"inactive", div2:"inactive", div3:"active"}))} >Login</Link>
+            </div>
+    }
   return (
     <div>
       { cart.length == 0 ? (

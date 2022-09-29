@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { LOGIN, login } from '../redux/Action'
+import { LOGIN, login, style } from '../redux/Action'
 import {useNavigate} from "react-router-dom"
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 export const List = () => {
     const [email,setEmail] = useState("")
     const [password, setPassword] = useState("")
-
+    const {isAuth} = useSelector((state) => state)
 
     const Navigate = useNavigate()
     const dispatch = useDispatch()
@@ -28,8 +28,11 @@ export const List = () => {
                         type:LOGIN,
                         payload:data.token
                     })
+
                     Navigate("/")
-                });
+                })
+                .then(() =>  dispatch(style({div1:"active", div2:"inactive", div3:"inactive"})))
+
 
             
         }
@@ -38,6 +41,9 @@ export const List = () => {
         }
     }   
 
+    if(isAuth){
+        return <div> You are already Logged In <strong>Refresh</strong> to logout</div>
+    }
 
   return (
     <div>

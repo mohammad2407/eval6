@@ -1,13 +1,45 @@
 .navbar__container{
     width:100%;
-
+    background: rgb(124, 117, 105);
+    padding: 1% 0;
 }
 
 .navbar__wrapper{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    height: 74px;
 }
+
+.active{
+    width:33%;
+    height: 90%;
+    background-color: rgb(112, 112, 161);
+    text-align: center;
+    text-decoration: none;
+    color:#ffff;
+    transition: 0.3s ease-in;
+
+}
+
+
+.inactive{
+    width:33%;
+    height: 100%;
+    background-color: rgba(98, 158, 98, 0.719);
+    transition: 0.3s ease-in;
+    text-align: center;
+    text-decoration: none;
+    color:black
+
+}
+
+.inactive:hover{
+    background-color: rgb(89, 89, 134);
+    opacity: 0.5;
+}
+
+
 
 form{
     width: 20%;

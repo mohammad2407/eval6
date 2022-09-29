@@ -1,5 +1,5 @@
 .Home{
-    background-color: rgb(56, 53, 53);
+    background-color: rgba(94, 91, 91, 0.911);
 }
 
 .Home__heading{
@@ -20,9 +20,8 @@
     margin: 15px 5px;
     padding:3% 5%;
     border-radius: 5px;
-
-
     background-color: #fff;
+    width: 100%;
 }
 
 .Home__img{

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import {useParams} from 'react-router'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
+import { showBtn, style } from '../redux/Action'
 export const SingleComponent = () => {
     const [eachProduct,setEachProduct] = useState([]);
     const [cartData, setCartData] = useState([])
@@ -10,15 +11,16 @@ export const SingleComponent = () => {
     const dispatch = useDispatch()
     const {id} = useParams()
 
+    const {showButton, isAuth} = useSelector((state) => state)
+    
+    console.log(showButton, isAuth)
     const getProduct = () =>{
         axios.get(`https://masai-lvetslp-server.herokuapp.com/products/${id}`)
        .then((res) => setEachProduct(res.data))
+    //    .then( dispatch(showBtn(false)))
    }
 
     useEffect(() =>{
-        
-     
-
         const getCart = () =>{
             axios.get(`https://masai-lvetslp-server.herokuapp.com/cart`)
             .then((res) => setCartData(res.data))
@@ -28,36 +30,39 @@ export const SingleComponent = () => {
     
     },[])
 
-    let show = true
+   
 
-    if(cartData){
 
-        cartData.map((item) => {
-            if(item.product_id == eachProduct.id){
-                show = false
+       if(cartData){
+        cartData.map((item) =>{
+            if(item.produc_id == eachProduct.id){
+                dispatch(showBtn(true))
             }
         })
+       }
         
-    }
 
 
 
-    const handleAddtoCart =() =>{
+    const handleAddtoCart = async() =>{
         let cart = {
             product_id : eachProduct.id,
             quantity : quantity
         }
-        axios.post("https://masai-lvetslp-server.herokuapp.com/cart", cart)
-        .then(show = true)
-      
+        
+               axios.post("https://masai-lvetslp-server.herokuapp.com/cart", cart)
+              .then(() => dispatch(showBtn(true)))
+        
     }
 
     
     
+
+    
   return (
     <div>
         <div>
-            <img src= {eachProduct.image} alt="" />
+            <img src= {eachProduct.image} alt={eachProduct.title} />
         </div>
 
         <div className='each__flex2'>
@@ -87,8 +92,10 @@ export const SingleComponent = () => {
             </div>
 
             {
-                show ? <button onClick={handleAddtoCart}  >Add to Cart</button> : <button> <Link to = {`/cart`}>Go to Cart</Link></button>
+               !showButton ? <button onClick={handleAddtoCart}  >  Add to cart</button>  : <button><Link onClick={() => dispatch(style({div1:"inactive", div2:"active", div3:"inactive"}))} to={`/cart`}> Go To Cart</Link></button>
+                
             }
+            
         </div>
     </div>
   )

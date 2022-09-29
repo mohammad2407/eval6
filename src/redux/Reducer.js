@@ -1,10 +1,16 @@
-import { ADD_TO_CART, LOGIN, UPDATE_CART } from "./Action";
+import { ADD_TO_CART, LOGIN, SHOWBTN, STYLE, UPDATE_CART } from "./Action";
 
 let initState = {
     token : null,
     movies :[],
     cart :[],
-    isAuth : false
+    isAuth : false,
+    showButton:false,
+    active :{
+        div1: "inactive",
+        div2: "inactive",
+        div3: "inactive",
+    },
 }
 
 
@@ -37,6 +43,18 @@ export const MovieReducer = (state = initState, {type,payload}) =>{
                 ...state,
                 cart:updateCart
             }
+
+            case STYLE:
+                return {
+                    ...state,
+                    active:payload
+                }
+
+            case SHOWBTN:
+                return{
+                    ...state,
+                    showButton:payload
+                }
         default:
             return state
     }

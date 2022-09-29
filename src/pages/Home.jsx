@@ -1,16 +1,17 @@
 import React, { useState,useEffect } from 'react'
-import{useSelector} from "react-redux"
+import{useDispatch, useSelector} from "react-redux"
 // import {useNavigate}from "react-router-dom"
 import {Link} from "react-router-dom"
 import axios from "axios"
 
 import "../styles/Home.css"
+import { style } from '../redux/Action'
 
 window.h = React.createElement;
 
 export const Home = () => {
     const Auth   = useSelector((store) => store.isAuth)
-
+    const dispatch = useDispatch()
     const [movieData, setMovieData] = useState([]);
   
     
@@ -26,17 +27,12 @@ export const Home = () => {
         }, []);
    
 
-
-
-   
-
-    console.log(movieData)
-    // if(Auth === false){
-    //     return <div>
-    //         <h1>Please Login</h1>
-    //         <Link to = "/list">Login</Link>
-    //         </div>
-    // }
+    if(Auth === false){
+        return <div>
+            <h1>Please Login</h1>
+            <Link to = "/list"  onClick = {() => dispatch(style({div1:"inactive", div2:"inactive", div3:"active"}))} >Login</Link>
+            </div>
+    }
     
   
 
@@ -45,7 +41,7 @@ export const Home = () => {
         <h1 className='Home__heading'> Our New Arrivals</h1>
     <div className='Home__container'>
         {
-            !movieData ? <div>loading....</div> :
+        movieData.length == 0 ? <div>loading....</div> :
          movieData.map((movie) =>{
            return <div key={movie.id} className = "Home__card">
                 <img src = {movie.image} alt="" className='Home__img'/>
